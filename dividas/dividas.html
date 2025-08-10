@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Dívidas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Controle de Dívidas</h1>
+    </header>
+
+    <main>
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="open">Em Aberto</button>
+            <button class="filter-btn" data-filter="paid">Quitadas</button>
+        </div>
+        <div id="debt-list-container">
+            <p id="empty-state">Nenhuma dívida cadastrada ainda. Clique no botão '+' para adicionar uma.</p>
+            <ul id="debt-list"></ul>
+        </div>
+    </main>
+
+    <button id="add-debt-btn" class="fab">+</button>
+
+    <!-- Modal para Adicionar/Editar Dívida -->
+    <dialog id="debt-modal">
+        <form id="debt-form">
+            <h2 id="modal-title">Adicionar Nova Dívida</h2>
+            <input type="hidden" id="debt-id">
+            <div class="form-group">
+                <label for="description">Descrição</label>
+                <input type="text" id="description" required>
+            </div>
+            <div class="form-group">
+                <label for="total-amount">Valor Total (R$)</label>
+                <input type="number" id="total-amount" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="start-date">Data de Início</label>
+                <input type="date" id="start-date" required>
+            </div>
+            <div class="form-group">
+                <label for="due-date">Data de Vencimento (Opcional)</label>
+                <input type="date" id="due-date">
+            </div>
+            <div class="form-group">
+                <label for="notes">Observações</label>
+                <textarea id="notes" rows="3"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancel-debt-btn">Cancelar</button>
+                <button type="submit" id="save-debt-btn">Salvar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Modal para Adicionar Pagamento -->
+    <dialog id="payment-modal">
+        <form id="payment-form">
+            <h2 id="payment-modal-title">Adicionar Pagamento</h2>
+            <input type="hidden" id="payment-debt-id">
+            <div class="form-group">
+                <label for="payment-amount">Valor do Pagamento (R$)</label>
+                <input type="number" id="payment-amount" step="0.01" required>
+            </div>
+             <div class="form-group">
+                <label for="payment-date">Data do Pagamento</label>
+                <input type="date" id="payment-date" required>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancel-payment-btn">Cancelar</button>
+                <button type="submit" id="save-payment-btn">Adicionar</button>
+            </div>
+        </form>
+    </dialog>
+    
+</body>
+</html>
+

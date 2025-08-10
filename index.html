@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mobile App Layout</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="mobile-container">
+        <header>
+            <h1>Minhas Finanças</h1>
+        </header>
+
+        <main id="content-area">
+            <div id="investments" class="tab-content active">
+                <iframe src="./investimento/investimentos.html" frameborder="0"></iframe>
+            </div>
+            <div id="subscriptions" class="tab-content">
+                <iframe src="./assinaturas/assinatura.html"></iframe>
+            </div>
+            <div id="debts" class="tab-content">
+               <iframe src="./dividas/dividas.html" frameborder="0"></iframe>
+            </div>
+        </main>
+
+        <nav id="bottom-nav">
+            <button class="nav-button active" data-tab="investments">
+                <img src="./icons/investment_icon.png" alt="Investimentos">
+                <span>Investimentos</span>
+            </button>
+            <button class="nav-button" data-tab="subscriptions">
+                <img src="./icons/subscriptions_icon.png" alt="Assinaturas">
+                <span>Assinaturas</span>
+            </button>
+            <button class="nav-button" data-tab="debts">
+                <img src="./icons/debt_icon.png" alt="Dívidas">
+                <span>Dívidas</span>
+            </button>
+        </nav>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

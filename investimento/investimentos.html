@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Investimento</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Calculadora de Investimentos</h1>
+            <p>Planeje a sua distribuição de ativos</p>
+        </header>
+        <main>
+            <div class="input-group">
+                <label for="total-investment">Quanto você vai investir no total?</label>
+                <div class="input-wrapper">
+                    <span>R$</span>
+                    <input type="number" id="total-investment" placeholder="1000,00">
+                </div>
+            </div>
+            <button id="calculate-btn">Calcular Distribuição</button>
+            <div id="result-container" class="hidden">
+                <h2>Distribuição Sugerida</h2>
+                <div id="crypto-result" class="result-item"></div>
+                <div id="dolar-result" class="result-item">
+                    <div class="result-item-main">
+                        <span class="dolar-main-text"></span>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="result-item-details hidden">
+                        <p>Deste valor, sugerimos a seguinte alocação em dólar:</p>
+                        <div id="dolar-stocks-result"></div>
+                        <div id="dolar-etf-result"></div>
+                        <div class="exchange-rate-info"></div>
+                    </div>
+                </div>
+                <div id="fixed-income-result" class="result-item"></div>
+                <div id="brazilian-stocks-result" class="result-item"></div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

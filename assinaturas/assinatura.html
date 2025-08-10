@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Assinaturas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Controle de Assinaturas</h1>
+        <button id="add-new-btn" aria-label="Adicionar Nova Assinatura"><i class="fas fa-plus"></i> Adicionar</button>
+    </header>
+
+    <div id="form-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <form id="subscription-form">
+                <h2>Nova Assinatura</h2>
+                <input type="hidden" id="item-id">
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="value">Valor (R$):</label>
+                    <input type="number" id="value" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="due-date">Data de Vencimento:</label>
+                    <input type="date" id="due-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Forma de Pagamento:</label>
+                    <input type="text" id="payment-method">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Observações:</label>
+                    <textarea id="notes"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <main>
+        <div id="summary">
+            <div class="summary-card">
+                <h4>Total Aberto</h4>
+                <p id="total-open">R$ 0,00</p>
+            </div>
+            <div class="summary-card">
+                <h4>Total Atrasado</h4>
+                <p id="total-overdue">R$ 0,00</p>
+            </div>
+            <div class="summary-card">
+                <h4>Total Pago</h4>
+                <p id="total-paid">R$ 0,00</p>
+            </div>
+        </div>
+        <div id="filters">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="open">Em Aberto</button>
+            <button class="filter-btn" data-filter="overdue">Atrasados</button>
+            <button class="filter-btn" data-filter="paid">Pagos</button>
+        </div>
+        <div id="subscription-list">
+            <!-- Itens da lista serão inseridos aqui pelo JavaScript -->
+        </div>
+        <div id="empty-state" class="hidden">
+            <i class="fas fa-receipt"></i>
+            <p>Nenhuma assinatura encontrada.</p>
+            <p>Clique em "Adicionar" para começar.</p>
+        </div>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
