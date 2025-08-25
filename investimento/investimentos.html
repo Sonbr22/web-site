@@ -3,47 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Investimento</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Monitor de Investimentos</title>
+    <link rel="stylesheet" href="investimentos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <header>
-            <h1>Calculadora de Investimentos</h1>
-            <p>Planeje a sua distribuição de ativos</p>
-        </header>
-        <main>
-            <div class="input-group">
-                <label for="total-investment">Quanto você vai investir no total?</label>
-                <div class="input-wrapper">
-                    <span>R$</span>
-                    <input type="number" id="total-investment" placeholder="1000,00">
+
+<div id="app">
+    <header>
+        <h1>InvestFlex</h1>
+    </header>
+
+    <nav>
+        <button id="nav-calc" class="nav-btn active">Calculadora</button>
+        <button id="nav-wallet" class="nav-btn">Minha Carteira</button>
+    </nav>
+
+    <main>
+        <!-- CALCULADORA -->
+        <div id="calculator-page" class="page active">
+            <h2>Calculadora de Aportes</h2>
+            <div class="card">
+                <label for="total-investment">Valor total a ser investido (R$):</label>
+                <input type="number" id="total-investment" placeholder="Ex: 1000">
+            </div>
+            
+            <div id="results" class="hidden">
+                <h3>Distribuição Sugerida:</h3>
+                <div class="card result-card">
+                    <h4>Criptomoedas (10%)</h4>
+                    <p id="crypto-result">R$ 0,00</p>
+                </div>
+                <div class="card result-card" id="dollar-card">
+                    <h4>Dólar (45%)</h4>
+                    <p id="dollar-result">R$ 0,00</p>
+                    <div id="dollar-details" class="hidden">
+                        <p class="dollar-rate">Cotação: <span id="usd-rate-calc">Carregando...</span></p>
+                        <p class="detail-item"><strong>Bolsa Americana (60%):</strong> <span id="us-stocks-result"></span></p>
+                        <p class="detail-item"><strong>ETF Renda Fixa (40%):</strong> <span id="us-etf-result"></span></p>
+                    </div>
+                </div>
+                <div class="card result-card">
+                    <h4>Renda Fixa (18%)</h4>
+                    <p id="fixed-income-result">R$ 0,00</p>
+                </div>
+                <div class="card result-card">
+                    <h4>Bolsa Brasileira (27%)</h4>
+                    <p id="br-stocks-result">R$ 0,00</p>
+                </div>
+                <button id="save-btn" class="btn">Adicionar à Carteira</button>
+            </div>
+        </div>
+
+        <!-- CARTEIRA -->
+        <div id="wallet-page" class="page">
+            <h2>Minha Carteira</h2>
+
+            <!-- Investimento Inicial -->
+            <div class="card">
+                <h3>Investimento Inicial</h3>
+                <p class="total-value">Total: <span id="initial-total">R$ 0,00</span></p>
+                <div class="wallet-item"><span>Criptomoedas:</span> <span id="initial-crypto">R$ 0,00</span></div>
+                <div class="wallet-item"><span>Renda Fixa:</span> <span id="initial-fixed-income">R$ 0,00</span></div>
+                <div class="wallet-item"><span>Bolsa Brasileira:</span> <span id="initial-br-stocks">R$ 0,00</span></div>
+                <div class="wallet-item"><span>Investimento Internacional:</span> <span id="initial-dollar-combined">R$ 0,00</span></div>
+                <button id="edit-initial-btn" class="btn btn-secondary">Editar</button>
+
+                <!-- Form de edição inline -->
+                <div id="edit-form" class="hidden">
+                    <div class="form-group">
+                        <label for="edit-crypto">Criptomoedas</label>
+                        <input type="number" id="edit-crypto" placeholder="R$ 0,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-fixed-income">Renda Fixa</label>
+                        <input type="number" id="edit-fixed-income" placeholder="R$ 0,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-br-stocks">Bolsa Brasileira</label>
+                        <input type="number" id="edit-br-stocks" placeholder="R$ 0,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-us-stocks">Bolsa Americana</label>
+                        <input type="number" id="edit-us-stocks" placeholder="R$ 0,00">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-us-etf">ETF Renda Fixa (US)</label>
+                        <input type="number" id="edit-us-etf" placeholder="R$ 0,00">
+                    </div>
+                    <div class="modal-actions">
+                        <button id="cancel-edit-btn" class="btn btn-secondary">Cancelar</button>
+                        <button id="save-edit-btn" class="btn">Salvar</button>
+                    </div>
                 </div>
             </div>
-            <button id="calculate-btn">Calcular Distribuição</button>
-            <div id="result-container" class="hidden">
-                <h2>Distribuição Sugerida</h2>
-                <div id="crypto-result" class="result-item"></div>
-                <div id="dolar-result" class="result-item">
-                    <div class="result-item-main">
-                        <span class="dolar-main-text"></span>
-                        <span class="expand-icon">▼</span>
-                    </div>
-                    <div class="result-item-details hidden">
-                        <p>Deste valor, sugerimos a seguinte alocação em dólar:</p>
-                        <div id="dolar-stocks-result"></div>
-                        <div id="dolar-etf-result"></div>
-                        <div class="exchange-rate-info"></div>
-                    </div>
+
+            <!-- Valores Atuais -->
+            <div class="card">
+                <h3>Valores Atuais</h3>
+                <p class="total-value">Total: <span id="current-total">R$ 0,00</span></p>
+                <div class="wallet-item input-item">
+                    <label for="current-crypto">Criptomoedas:</label>
+                    <input type="number" id="current-crypto" data-category="crypto" placeholder="R$ 0,00">
                 </div>
-                <div id="fixed-income-result" class="result-item"></div>
-                <div id="brazilian-stocks-result" class="result-item"></div>
+                <div class="wallet-item input-item">
+                    <label for="current-fixed-income">Renda Fixa:</label>
+                    <input type="number" id="current-fixed-income" data-category="fixedIncome" placeholder="R$ 0,00">
+                </div>
+                <div class="wallet-item input-item">
+                    <label for="current-br-stocks">Bolsa Brasileira:</label>
+                    <input type="number" id="current-br-stocks" data-category="brStocks" placeholder="R$ 0,00">
+                </div>
+                <div class="wallet-item input-item">
+                    <label for="current-dollar-combined">Invest. Internacional:</label>
+                    <input type="number" id="current-dollar-combined" data-category="dollarCombined" placeholder="R$ 0,00">
+                </div>
             </div>
-        </main>
-    </div>
-    <script src="script.js"></script>
+
+            <!-- Lucro / Prejuízo -->
+            <div class="card">
+                <h3>Lucro / Prejuízo</h3>
+                <p class="total-value">Total: <span id="total-pl">R$ 0,00 (0.00%)</span></p>
+                <div class="wallet-item"><span>Criptomoedas:</span> <span id="pl-crypto">R$ 0,00</span></div>
+                <div class="wallet-item"><span>Renda Fixa:</span> <span id="pl-fixed-income">R$ 0,00</span></div>
+                <div class="wallet-item"><span>Bolsa Brasileira:</span> <span id="pl-br-stocks">R$ 0,00</span></div>
+                <div class="wallet-item"><span>Investimento Internacional:</span> <span id="pl-dollar-combined">R$ 0,00</span></div>
+            </div>
+
+            <button id="reset-btn" class="btn btn-danger">Resetar Carteira</button>
+        </div>
+    </main>
+</div>
+
+<script src="investimentos.js"></script>
 </body>
 </html>
